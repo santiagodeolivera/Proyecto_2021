@@ -1,0 +1,17 @@
+1. Ask for whether the user wants to sign up as new user, or log in as existing user
+1.a. The user wants to exit the program
+    1. END
+1.b. The user wants to log in
+    1. Ask for the following set of data: { name, password }
+    2. Check whether the given data is valid (both strings aren't empty)
+    2.a. One, or the two of them is empty
+        1. Notify the user that the data is invalid
+        2. Go to 1.a.1.
+    3. Check whether the data corresponds to an existing user
+    3.a. The data doesn't correspond to an existing user
+        1. Notify the user
+        2. Go to 1.a.1.
+    4. Set the current user as the one determined by the data
+        (maybe do some OAuth things like storing the token)
+1.c. The user wants to sign up
+    1. Ask for the following set of data: { name, email, password, repeated-password... }
