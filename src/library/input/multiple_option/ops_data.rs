@@ -16,7 +16,7 @@ impl<'a> From<&'a [ (&'a str, &'a str) ]> for OpsData<'a> {
 impl<'a> Display for OpsData<'a> {
     fn fmt(&self, f: &mut Formatter) -> FmtResult {
         for i in self.data {
-            writeln!(f, "{}: {}", i.0, i.1)?;
+            writeln!(f, "    {}: {}", i.0, i.1)?;
         }
         Ok(())
     }
@@ -29,9 +29,9 @@ mod tests {
     #[test]
     fn test_ops_data() {
         let expected = if cfg!(windows) {
-            "S: Sign up\r\nL: Log in\r\n"
+            "    S: Sign up\r\n    L: Log in\r\n"
         } else {
-            "S: Sign up\nL: Log in\n"
+            "    S: Sign up\n    L: Log in\n"
         };
 
         let actual = OpsData {
