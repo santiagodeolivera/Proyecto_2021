@@ -1,2 +1,2 @@
-pub mod multiple_option_input;
-pub mod aliases;
+pub mod input;
+pub mod program;
