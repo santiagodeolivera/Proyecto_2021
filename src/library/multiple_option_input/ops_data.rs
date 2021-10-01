@@ -1,5 +1,7 @@
 use std::fmt::{ Display, Formatter, Result as FmtResult };
 
+// Used in the context of when the program asks for multiple-option data to the user,
+// it represents the options of which that data can be.
 pub struct OpsData<'a> {
     data: &'a [ (&'a str, &'a str) ]
 }
@@ -25,6 +27,6 @@ mod tests {
                 ("L", "Log in")
             ]
         };
-        assert_eq!(expected, actual);
+        assert_eq!(expected, actual.to_string());
     }
 }
