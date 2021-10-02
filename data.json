@@ -1,9 +1,1 @@
-{
-    "users": [
-        {
-            "name": "Santiago",
-            "password": "123",
-            "user_type": "admin"
-        }
-    ]
-}
+{"users":{"admins":[{"name":"Santiago","password":"123"}],"entrepeneurs":[],"companies":[{"name":"A","password":"123","location":"Montevideo","title":"C"}]}}

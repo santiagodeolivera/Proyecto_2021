@@ -1,0 +1,2 @@
+Figure out how to configure the program's mechanic of going back.
+Add repeated password functionality.

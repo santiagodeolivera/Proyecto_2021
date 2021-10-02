@@ -28,11 +28,7 @@ mod tests {
 
     #[test]
     fn test_ops_data() {
-        let expected = if cfg!(windows) {
-            "    S: Sign up\r\n    L: Log in\r\n"
-        } else {
-            "    S: Sign up\n    L: Log in\n"
-        };
+        let expected = "    S: Sign up\n    L: Log in\n";
 
         let actual = OpsData {
             data: &[

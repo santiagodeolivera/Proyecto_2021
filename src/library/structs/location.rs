@@ -1,0 +1,1 @@
+pub type Location = crate::library::structs::TrimmedStr;

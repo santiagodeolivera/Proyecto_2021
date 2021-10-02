@@ -10,4 +10,3 @@ pub use from_input::*;
 
 mod manager;
 pub use manager::*;
-

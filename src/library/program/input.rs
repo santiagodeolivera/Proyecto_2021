@@ -1,11 +1,5 @@
-mod sign_up_or_log_in;
-pub use sign_up_or_log_in::*;
+use std::io::{ BufRead, BufReader, stdin, Result as IoResult };
 
-mod line_reader;
-pub use line_reader::line_reader;
-
-mod log_in_data;
-pub use log_in_data::*;
-
-mod trimmed_str;
-pub use trimmed_str::*;
+pub fn line_reader() -> impl Iterator<Item = IoResult<String>> {
+    BufReader::new(stdin()).lines()
+}

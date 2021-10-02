@@ -22,7 +22,7 @@ The chatbot must:
         Receive a report of all given materials over a period of time
     
     Allow entrepeneurs to:
-        Sign up to the platform, giving:
+        Sign up to the platform, giving this information:
             Name
             Location
             Title

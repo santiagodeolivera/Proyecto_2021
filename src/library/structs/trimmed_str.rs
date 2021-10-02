@@ -1,6 +1,8 @@
 use std::ops::Deref;
+use serde::{ Deserialize, Serialize };
 
-#[derive(Debug)]
+#[derive(Deserialize, Serialize, Debug, PartialEq, Eq, Clone)]
+#[serde(transparent)]
 pub struct TrimmedStr {
     s: String
 }
@@ -27,6 +29,7 @@ impl FromSimpleInput for TrimmedStr {
 
 impl TrimmedStr {
     pub fn mutate(&mut self, f: impl FnOnce(&mut String)) {
+        if &self.s != self.s.trim() {  self.s = self.s.trim().to_string()  }
         f(&mut self.s);
         self.s = self.s.trim().to_string();
     }
@@ -35,7 +38,7 @@ impl TrimmedStr {
 impl Deref for TrimmedStr {
     type Target = str;
     fn deref(&self) -> &Self::Target {
-        &self.s
+        &self.s.trim()
     }
 }
 
