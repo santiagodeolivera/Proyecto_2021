@@ -1,12 +1,6 @@
 use std::str::FromStr;
-use std::io::Result as IoResult;
-use crate::library::input::FromInput;
+use crate::library::input::simple::FromSimpleInput;
 use crate::library::input::multiple_option::FromMultipleOptionInput;
-use crate::library::input::multiple_option::get_multiple_option_input;
-
-pub fn sign_up_or_log_in(input: &mut impl Iterator<Item = IoResult<String>>) -> Option<SignUpOrLogIn> {
-    get_multiple_option_input("Welcome. Do you want to sign up or log in?", input)
-}
 
 #[derive(Debug, PartialEq)]
 pub enum SignUpOrLogIn {
@@ -27,7 +21,7 @@ impl FromStr for SignUpOrLogIn {
     }
 }
 
-impl FromInput for SignUpOrLogIn {
+impl FromSimpleInput for SignUpOrLogIn {
     fn error_str(_error: ()) -> Cow<'static, str> {
         Cow::Borrowed("Invalid input")
     }

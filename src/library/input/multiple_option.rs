@@ -4,14 +4,11 @@ pub use from_input::*;
 mod ops_data;
 pub use ops_data::*;
 
-use std::io::{ Result as IoResult };
 use crate::library::flush_stdout;
 use crate::library::input::notify_error;
-
+use crate::library::input::InputManager;
 // Prints a message to the console and then asks for a line of input
-pub fn get_multiple_option_input<T, I>(msg: &str, input: &mut I) -> Option<T>
-    where T: FromMultipleOptionInput,
-          I: Iterator<Item = IoResult<String>> {
+pub fn get_multiple_option_input<T>(msg: &str, input: &mut InputManager) -> Option<T> where T: FromMultipleOptionInput {
     loop {
         print!("\n{}\n{}\n>>> ", msg, T::options());
         flush_stdout();
@@ -31,6 +28,7 @@ pub fn get_multiple_option_input<T, I>(msg: &str, input: &mut I) -> Option<T>
 mod tests {
     use super::*;
     use crate::library::program::input::SignUpOrLogIn;
+    use std::convert::From;
 
     #[test]
     fn test_sign_up_or_log_in() {
@@ -39,7 +37,8 @@ mod tests {
         let mut input = [
             "", "", "S"
         ].iter().map(|s| Ok(String::from(*s)));
-        let actual: Option<SignUpOrLogIn> = get_multiple_option_input("Welcome. Do you want to sign up or log in?", &mut input);
+        let mut input = InputManager::from( &mut input );
+        let actual: Option<SignUpOrLogIn> = input.get_multiple_option_input("Welcome. Do you want to sign up or log in?");
 
         assert_eq!(expected, actual);
     }
