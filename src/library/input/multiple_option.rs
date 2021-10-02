@@ -16,9 +16,25 @@ pub fn get_multiple_option_input<T>(msg: &str, input: &mut InputManager) -> Opti
             None =>                      panic!("Standard input closed"),
             Some(Err(e)) =>              panic!("Input/Output fatal error:\n{}", e),
             Some(Ok(v)) if &v == "\\" =>   return None,
-            Some(Ok(v)) => match T::from_str(v.trim()) {
+            Some(Ok(v)) => match T::from_input(v.trim()) {
                 Ok(r) => return Some(r),
                 Err(e) => notify_error(&T::error_str(e), input)
+            }
+        };
+    }
+}
+
+pub fn get_multiple_option_input_without_error_message<T>(msg: &str, input: &mut InputManager) -> Option<T> where T: FromMultipleOptionInput {
+    loop {
+        print!("\n{}\n{}>>> ", msg, T::options());
+        flush_stdout();
+        match input.next() {
+            None =>                      panic!("Standard input closed"),
+            Some(Err(e)) =>              panic!("Input/Output fatal error:\n{}", e),
+            Some(Ok(v)) if &v == "\\" =>   return None,
+            Some(Ok(v)) => match T::from_input(v.trim()) {
+                Ok(r) => return Some(r),
+                Err(_) => {}
             }
         };
     }

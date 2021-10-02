@@ -1,6 +1,6 @@
 use crate::library::input::InputManager;
 use crate::library::memory::MemoryInterface;
-use crate::library::structs::{ TrimmedStr, User, UserType, Location, CompanyData };
+use crate::library::structs::{ User, CompanyData };
 
 pub fn create_company(input: &mut InputManager, memory: &impl MemoryInterface) -> Option<Result<User, &'static str>> {
     let data: CompanyData = input.get_form_input()?;

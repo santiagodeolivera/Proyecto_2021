@@ -8,10 +8,10 @@ pub enum UserType {
     Company
 }
 
-use std::str::FromStr;
-impl FromStr for UserType {
+use crate::library::input::simple::FromSimpleInput;
+impl FromSimpleInput for UserType {
     type Err = ();
-    fn from_str(s: &str) -> Result<Self, Self::Err>{
+    fn from_input(s: &str) -> Result<Self, Self::Err>{
         Ok(
             match s {
                 "A" | "a" => UserType::Admin,
@@ -22,9 +22,6 @@ impl FromStr for UserType {
         )
     }
 }
-
-use crate::library::input::simple::FromSimpleInput;
-impl FromSimpleInput for UserType {}
 
 use crate::library::input::multiple_option::FromMultipleOptionInput;
 impl FromMultipleOptionInput for UserType {

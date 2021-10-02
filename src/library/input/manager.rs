@@ -35,6 +35,10 @@ impl InputManager<'_> {
         crate::library::input::multiple_option::get_multiple_option_input(msg, self)
     }
 
+    pub fn get_multiple_option_input_without_error_message<T: FromMultipleOptionInput>(&mut self, msg: &str) -> Option<T> {
+        crate::library::input::multiple_option::get_multiple_option_input_without_error_message(msg, self)
+    }
+
     pub fn get_form_input<T: FromFormInput>(&mut self) -> Option<T> {
         crate::library::input::forms::get_form_input(self)
     }

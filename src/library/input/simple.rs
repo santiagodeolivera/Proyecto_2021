@@ -12,7 +12,7 @@ pub fn get_simple_input<T>(msg: &str, input: &mut InputManager) -> Option<T> whe
             None =>                      panic!("Standard input closed"),
             Some(Err(e)) =>              panic!("Input/Output fatal error:\n{}", e),
             Some(Ok(v)) if &v == "\\" =>   return None,
-            Some(Ok(v)) => match T::from_str(&v) {
+            Some(Ok(v)) => match T::from_input(&v) {
                 Ok(r) => return Some(r),
                 Err(e) => notify_error(&T::error_str(e), input)
             }

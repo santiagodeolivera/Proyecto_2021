@@ -6,7 +6,6 @@ use entrepeneur::create_entrepeneur;
 
 mod company;
 use company::create_company;
-
 use crate::library::input::InputManager;
 use crate::library::memory::MemoryInterface;
 use crate::library::structs::User;

@@ -43,7 +43,7 @@ impl FileMemory {
 
 use std::convert::Into;
 use crate::library::memory::MemoryInterface;
-use crate::library::structs::{ User, CompanyData, TrimmedStr };
+use crate::library::structs::{ User, AdminData, CompanyData, EntrepeneurData, TrimmedStr };
 impl MemoryInterface for FileMemory {
     fn users(&self) -> Vec<User> {
         self.read_json_data().users.into_users().collect()
@@ -56,11 +56,31 @@ impl MemoryInterface for FileMemory {
             .next()
     }
 
+    fn create_admin(&self, data: AdminData) -> bool {
+        self.mut_json_data(|json| {
+            let does_not_exist = json.users.does_not_exist(&data.name);
+            if does_not_exist {
+                json.users.admins.push(data);
+            }
+            does_not_exist
+        })
+    }
+
     fn create_company(&self, data: CompanyData) -> bool {
         self.mut_json_data(|json| {
             let does_not_exist = json.users.does_not_exist(&data.name);
             if does_not_exist {
                 json.users.companies.push(data);
+            }
+            does_not_exist
+        })
+    }
+
+    fn create_entrepeneur(&self, data: EntrepeneurData) -> bool {
+        self.mut_json_data(|json| {
+            let does_not_exist = json.users.does_not_exist(&data.name);
+            if does_not_exist {
+                json.users.entrepeneurs.push(data);
             }
             does_not_exist
         })

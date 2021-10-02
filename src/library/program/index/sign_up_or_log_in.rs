@@ -4,7 +4,6 @@ use sign_up::sign_up;
 mod log_in;
 use log_in::log_in;
 
-use std::str::FromStr;
 use crate::library::input::simple::FromSimpleInput;
 use crate::library::input::multiple_option::FromMultipleOptionInput;
 use crate::library::structs::User;
@@ -25,9 +24,9 @@ enum SignUpOrLogIn {
     LogIn
 }
 
-impl FromStr for SignUpOrLogIn {
+impl FromSimpleInput for SignUpOrLogIn {
     type Err = ();
-    fn from_str(input: &str) -> Result<Self, Self::Err> {
+    fn from_input(input: &str) -> Result<Self, Self::Err> {
         Ok(
             match input {
                 "s" | "S" => SignUpOrLogIn::SignUp,
@@ -36,9 +35,6 @@ impl FromStr for SignUpOrLogIn {
             }
         )
     }
-}
-
-impl FromSimpleInput for SignUpOrLogIn {
     fn error_str(_error: ()) -> Cow<'static, str> {
         Cow::Borrowed("Invalid input")
     }

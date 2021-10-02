@@ -1,5 +1,4 @@
 use crate::library::input::InputManager;
-use crate::library::memory::MemoryInterface;
 use crate::library::structs::{ TrimmedStr, User, UserType, Location };
 use serde::{ Deserialize, Serialize };
 
@@ -18,6 +17,16 @@ impl Into<User> for CompanyData {
     }
 }
 
+use std::fmt::{ Display, Formatter, Result as FmtResult };
+impl Display for CompanyData {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+        writeln!(f, "name: {}", self.name)?;
+        writeln!(f, "password: {}", self.password)?;
+        writeln!(f, "location: {}", self.location)?;
+        writeln!(f, "title: {}", self.title)
+    }
+}
+
 use std::borrow::Cow;
 use std::convert::Infallible;
 use crate::library::input::forms::FromFormInput;
@@ -25,7 +34,7 @@ impl FromFormInput for CompanyData {
     type Err = Infallible;
     fn from_input(input: &mut InputManager) -> Option<Result<Self, Self::Err>> {
         let name: TrimmedStr = input.get_simple_input("Name: ")?;
-        let password: Location = input.get_simple_input("Password: ")?;
+        let password: TrimmedStr = input.get_simple_input("Password: ")?;
         let location: Location = input.get_simple_input("Location: ")?;
         let title: TrimmedStr = input.get_simple_input("Title: ")?;
         Some(

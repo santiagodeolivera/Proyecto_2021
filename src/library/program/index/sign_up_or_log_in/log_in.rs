@@ -24,6 +24,14 @@ struct LogInData {
     pub password: TrimmedStr
 }
 
+use std::fmt::{ Display, Formatter, Result as FmtResult };
+impl Display for LogInData {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+        writeln!(f, "name: {}", self.name)?;
+        writeln!(f, "password: {}", self.password)
+    }
+}
+
 // Parses data from input
 // Returns Some(Ok(v)) to return a successful value
 // Returns Some(Err(e)) to indicate an invalid input

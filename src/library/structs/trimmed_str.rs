@@ -7,23 +7,33 @@ pub struct TrimmedStr {
     s: String
 }
 
-use std::str::FromStr;
-impl FromStr for TrimmedStr {
+use std::borrow::Cow;
+use crate::library::input::simple::FromSimpleInput;
+impl FromSimpleInput for TrimmedStr {
     type Err = ();
-    fn from_str(s: &str) -> Result<Self, ()> {
+    fn from_input(s: &str) -> Result<Self, ()> {
         let s = s.trim().to_string();
         match s.len() {
             0 => Err(()),
             _ => Ok(TrimmedStr { s })
         }
     }
-}
-
-use std::borrow::Cow;
-use crate::library::input::simple::FromSimpleInput;
-impl FromSimpleInput for TrimmedStr {
     fn error_str(_error: ()) -> Cow<'static, str> {
         Cow::Borrowed("Missing input")
+    }
+}
+
+use std::fmt::{ Display, Formatter, Result as FmtResult };
+impl Display for TrimmedStr {
+    fn fmt(&self, f: &mut Formatter) -> FmtResult {
+        Display::fmt(&self.s, f)
+    }
+}
+
+impl Deref for TrimmedStr {
+    type Target = str;
+    fn deref(&self) -> &Self::Target {
+        &self.s.trim()
     }
 }
 
@@ -35,20 +45,13 @@ impl TrimmedStr {
     }
 }
 
-impl Deref for TrimmedStr {
-    type Target = str;
-    fn deref(&self) -> &Self::Target {
-        &self.s.trim()
-    }
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
     use std::ops::Deref;
 
     fn test_base(expected: Option<&str>, initial: &str) {
-        let trimmed = TrimmedStr::from_str(initial);
+        let trimmed = TrimmedStr::from_input(initial);
         assert_eq!(expected, trimmed.as_ref().map(Deref::deref).ok());
     }
 
