@@ -1,3 +1,4 @@
+use std::convert::Infallible;
 use crate::library::input::multiple_option::OpsData;
 use crate::library::input::simple::FromSimpleInput;
 
@@ -25,4 +26,15 @@ impl FromMultipleOptionInput for bool {
         ("Y", "yes"),
         ("N", "no")
     ];
+}
+
+impl FromSimpleInput for Infallible {
+    type Err = ();
+    fn from_input(_: &str) -> Result<Self, Self::Err> {
+        Err(())
+    }
+}
+
+impl FromMultipleOptionInput for Infallible {
+    const OPTIONS: &'static [ (&'static str, &'static str) ] = &[];
 }

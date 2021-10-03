@@ -11,10 +11,14 @@ use crate::library::input::InputManager;
 use crate::library::memory::MemoryInterface;
 
 pub fn get_user(input: &mut InputManager, memory: &impl MemoryInterface) -> Option<User> {
-    let sign_up_or_log_in = input.get_multiple_option_input::<SignUpOrLogIn>("Welcome. Do you want to sign up or log in?")?;
-    match sign_up_or_log_in {
-        SignUpOrLogIn::LogIn => log_in(input, memory),
-        SignUpOrLogIn::SignUp => sign_up(input, memory)
+    loop {
+        let sign_up_or_log_in = input.get_multiple_option_input::<SignUpOrLogIn>("Welcome. Do you want to sign up or log in?")?;
+        if let Some(user) = match sign_up_or_log_in {
+            SignUpOrLogIn::LogIn => log_in(input, memory),
+            SignUpOrLogIn::SignUp => sign_up(input, memory)
+        } {
+            return Some(user);
+        }
     }
 }
 

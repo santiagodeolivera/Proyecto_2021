@@ -1,1 +1,24 @@
-{"users":{"admins":[{"name":"Santiago","password":"123"}],"entrepeneurs":[],"companies":[{"name":"A","password":"123","location":"Montevideo","title":"C"}]}}
+{
+    "users": {
+        "admins": [
+            {
+                "name": "Santiago",
+                "password": "123"
+            },
+            {
+                "name": "bruno",
+                "password": "321"
+            }
+        ],
+        "entrepeneurs": [
+            {
+                "name": "Roberto",
+                "password": "432",
+                "location": "Atlántida",
+                "title": "...",
+                "habilitations": {}
+            }
+        ],
+        "companies": []
+    }
+}
